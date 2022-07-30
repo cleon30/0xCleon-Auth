@@ -87,7 +87,7 @@ function App() {
     try{
       if (!signMessage) throw new Error('Wallet does not support message signing!');
       if (!walletAddress) throw new Error('Wallet not connected!');
-      let message = `Connect to Wallet via Artz.ai`;
+      let message = `Sign this message to prove ownership of this wallet`;
       let encodedMessage = new TextEncoder().encode(message);
       let signedMessage = await window.solana.signMessage(encodedMessage, "utf-8")
       let signed_data = signedMessage.signature
@@ -97,6 +97,7 @@ function App() {
       
        });
       setsignInfo(dataToSend);
+      console.log(dataToSend);
     }catch(e){
     console.log(e);
     }
@@ -114,31 +115,27 @@ function App() {
   }, []);
   const renderConnectedContainer = () => {
     
-    // if (gifList === null) {
-    //   return (
-    //     <div className="connected-container">
-    //       <button
-    //         className="cta-button submit-gif-button"
-    //         onClick={createGifAccount}
-    //       >
-    //         Do One-Time Initialization For GIF Program Account
-    //       </button>
-    //     </div>
-    //   );
-    // }
+    if (signInfo === null) {
+      return (
+      <div className="connected-container">
+      <div className = "wrap-image-thumbnail-blog">
+      <div>
+      <h1 className="h1-gradient font-size-3em"> Sign to proof ownership</h1>
+        {SignButton()}
+        <img src="https://assets.website-files.com/611580035ad59b20437eb024/61f9dd0e9bcfb573c8ff9c6e_image-blog-2.jpg" loading="lazy" alt="" class="image-thumbnail-blog">
+      </img>
+      </div>
+      {/* <img src ="https://assets.website-files.com/611580035ad59b20437eb024/6170e6b7587b587e289e9d75_line%20svg%20(1).png" loading="lazy" sizes="100vw" alt="" class="star">
+      </img> */}
+      </div>
+      </div>
+      );
+      
+    }
 
     return (
       <div className="connected-container">
-        <div className = "wrap-image-thumbnail-blog">
-        <div>
-        <h1 className="h1-gradient font-size-3em"> Sign to proof ownership</h1>
-          {SignButton()}
-          <img src="https://assets.website-files.com/611580035ad59b20437eb024/61f9dd0e9bcfb573c8ff9c6e_image-blog-2.jpg" loading="lazy" alt="" class="image-thumbnail-blog">
-        </img>
-        </div>
-        {/* <img src ="https://assets.website-files.com/611580035ad59b20437eb024/6170e6b7587b587e289e9d75_line%20svg%20(1).png" loading="lazy" sizes="100vw" alt="" class="star">
-        </img> */}
-        </div>
+        Hello
       </div>
     );
   };
