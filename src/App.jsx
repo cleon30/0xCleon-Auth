@@ -1,16 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useState, useEffect, useCallback } from "react";
-import { VerifyMessage } from '@solana/web3.js';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import './App.css';
+import theme from './theme';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import Navbar from './components/navbar/Navbar';
+import Notifier from './components/notifier/Notifier';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
+import Home from './pages/Home/Home';
+import NotFound from './pages/NotFound/NotFound';
+import Dashboard from './pages/Dashboard/Dashboard';
+import DiscordCallback from './pages/DiscordCallback/DiscordCallback';
 import { Connection, PublicKey, clusterApiUrl, Keypair } from '@solana/web3.js';
 import { AnchorProvider, Program, Provider, web3, utils } from '@project-serum/anchor';
-import { sign } from 'tweetnacl';
-import bs58 from 'bs58';
+import { useWallet } from '@solana/wallet-adapter-react';
+// import { selectors } from '../../modules/_common/auth/discord';
+import { useSelector } from 'react-redux';
+import { selectors as authSel } from './modules/_common/auth/discord';
 
 
 
-function App() {
+const App = () => {
   const { publicKey, signMessage } = useWallet();
   const [walletAddress, setWalletAddress] = useState(null);
   const [signInfo, setsignInfo] = useState(null);
@@ -19,15 +28,8 @@ function App() {
   const opts = {
     preflightCommitment: "processed"
   }
-  
-  const { SystemProgram, Keypair } = web3;
-  const getProvider = () => {
-    const connection = new Connection(network, opts.preflightCommitment);
-    const provider = new AnchorProvider(
-      connection, window.solana, opts.preflightCommitment,
-    );
-    return provider;
-  }
+  const auth_Discord = useSelector(authSel.authenticated);
+  const route = localStorage.getItem('route');
   const checkIfWalletIsConnected = async () => {
     try {
       const { solana } = window;
@@ -134,9 +136,38 @@ function App() {
     }
 
     return (
-      <div className="connected-container">
-        Hello
-      </div>
+      <Router>
+        <Notifier />
+   
+   
+          <Navbar auth={auth_Discord} />
+          <Switch>
+            <Route path='/api/discordCallback' component={DiscordCallback} />
+  
+            <PrivateRoute
+              exact
+              path='/dashboard'
+              component={Dashboard}
+              auth={auth_Discord}
+            />
+  
+            <PrivateRoute
+              exact
+              path='/private'
+              component={Dashboard}
+              auth={auth_Discord}
+            />
+  
+            <Route
+              exact
+              path='/login'
+              render={() => <Home auth={auth_Discord} route={route} />}
+            />
+  
+            <Route component={NotFound} />
+          </Switch>
+
+      </Router>
     );
   };
 
@@ -210,5 +241,7 @@ function App() {
     </div>
   );
 }
+
+ 
 
 export default App;
