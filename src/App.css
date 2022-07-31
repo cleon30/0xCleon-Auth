@@ -32,9 +32,19 @@
     margin-top: 0.5em;
     margin-bottom: 1em;
   }
+  
   .sign-button {
     /* background: -webkit-linear-gradient(left, #FF387E, #711EFF,#3FE5FF); */
     background-image: url("https://assets.website-files.com/611580035ad59b20437eb024/616f998c4fdccc1e0de4e5a1_btn%20background%20(1).png");
+    background-size: 100% 100%;
+    animation: animate 4s ease-in-out infinite;
+    position: relative;
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+  }
+  .discord-button {
+    /* background: -webkit-linear-gradient(left, #FF387E, #711EFF,#3FE5FF); */
+    background-image: url("https://discord.com/assets/cb48d2a8d4991281d7a6a95d2f58195e.svg");
     background-size: 100% 100%;
     animation: animate 4s ease-in-out infinite;
     position: relative;
@@ -54,6 +64,20 @@
     color: black;
   
   }
+  .cta-button2 {
+    height: 100px;
+    /* border: 0; */
+    width: 200px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    position: relative
+  }
+  
   .authed-container {
     position: relative;
     display: -webkit-box;
@@ -115,6 +139,11 @@
   }
   .wrap-image-thumbnail-blog {
     margin-bottom: 2em;
+  }
+  .wrap-image-discord {
+    margin-bottom: 2em;
+    margin-right: 1em;
+    left: 3722px;
   }
   .grid-3 {
     -ms-grid-columns: 1fr;

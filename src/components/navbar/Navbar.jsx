@@ -16,8 +16,8 @@ const Wrapper = styled.div`
   background-color: ${theme.backgroundColor};
   justify-content: space-between;
   align-items: center;
-  min-height: 5rem;
-  padding: 0 14rem;
+  min-height: 1rem;
+  padding: 0 9rem;
   font-size: 2rem;
   display: flex;
   opacity: 0.9;
@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 const Navbar = ({ auth }) => {
   return (
     <Wrapper>
-
+     
       <UserControl data-test='userControlComponent' auth={auth} />
     </Wrapper>
   );

@@ -8,7 +8,8 @@ const UserControl = ({ auth }) => {
   const redirect = () => operations.redirect();
 
   return auth ? (
-    <UserMenu data-test='userMenuComponent' />
+    <UserMenu data-test='userMenuComponent'/>
+    
   ) : (
     <Login data-test='loginComponent' redirect={redirect} />
   );

@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
-
+import '../../../../App.css';
 import { operations } from '../../../../modules/_common/auth/discord';
 import { useSelector } from 'react-redux';
 import { selectors as authSel } from '../../../../modules/_common/auth/discord';
@@ -56,15 +56,15 @@ const UserMenu = () => {
       >
         {data ? data.username : ''}
       </Button>
-      <Menu
+      <Menu 
         id='simple-menu'
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Menu Option 1</MenuItem>
-        <MenuItem onClick={handleClose}>Menu Option 2</MenuItem>
+        {/* <MenuItem onClick={handleClose}>Menu Option 1</MenuItem>
+        <MenuItem onClick={handleClose}>Menu Option 2</MenuItem> */}
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </Layout>

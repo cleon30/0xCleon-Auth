@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
+import axios from 'axios';
 import theme from './theme';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Navbar from './components/navbar/Navbar';
@@ -16,11 +17,12 @@ import { useWallet } from '@solana/wallet-adapter-react';
 // import { selectors } from '../../modules/_common/auth/discord';
 import { useSelector } from 'react-redux';
 import { selectors as authSel } from './modules/_common/auth/discord';
-
+import { user_GET } from './api/discord/data';
 
 
 const App = () => {
   const { publicKey, signMessage } = useWallet();
+  const [data, setData] = React.useState(null);
   const [walletAddress, setWalletAddress] = useState(null);
   const [signInfo, setsignInfo] = useState(null);
   
@@ -28,6 +30,7 @@ const App = () => {
   const opts = {
     preflightCommitment: "processed"
   }
+  const accessToken = useSelector(authSel.accessToken);
   const auth_Discord = useSelector(authSel.authenticated);
   const route = localStorage.getItem('route');
   const checkIfWalletIsConnected = async () => {
@@ -51,6 +54,11 @@ const App = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+  const getUserName = async () => {
+    const req = user_GET(accessToken);
+    const result = await axios.get(req.url, req.headers);
+    setData(result.data);
   };
   const connectWallet = async () => {
     const { solana } = window;
@@ -101,7 +109,7 @@ const App = () => {
       setsignInfo(dataToSend);
       console.log(dataToSend);
     }catch(e){
-    console.log(e);
+    console.log("hello");
     }
   };
   
@@ -110,19 +118,22 @@ const App = () => {
   useEffect(() => {
     const onLoad = async () => {
       await checkIfWalletIsConnected();
+      
     };
     
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
   }, []);
   const renderConnectedContainer = () => {
-    
+  
+    // getUserName();
+   
     if (signInfo === null) {
       return (
       <div className="connected-container">
       <div className = "wrap-image-thumbnail-blog">
       <div>
-      <h1 className="h1-gradient font-size-3em"> Sign to proof ownership</h1>
+      <h1 className="h1-gradient font-size-3em">  Sign to proof ownership</h1>
         {SignButton()}
         <img src="https://assets.website-files.com/611580035ad59b20437eb024/61f9dd0e9bcfb573c8ff9c6e_image-blog-2.jpg" loading="lazy" alt="" class="image-thumbnail-blog">
       </img>
@@ -134,7 +145,7 @@ const App = () => {
       );
       
     }
-
+    // getUserName();
     return (
       <Router>
         <Notifier />
