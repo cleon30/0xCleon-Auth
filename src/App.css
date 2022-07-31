@@ -7,6 +7,14 @@
     height: 40vmin;
     pointer-events: none;
   }
+  .normal-text{
+    /* margin-top: 1em; */
+    margin-bottom: 1em;
+    opacity: .8;
+    font-size: 1.3em;
+    line-height: 1.6em;
+    color:white;
+  }
   
   @media (prefers-reduced-motion: no-preference) {
     .App-logo {
@@ -185,6 +193,13 @@
   .h1-gradient.font-size-3em {
     font-size: 1.8em;
     line-height: 1.2;
+  }
+  .h1-gradient.font-size-05em {
+    font-size: 1em;
+    line-height: 1.2;
+    position:absolute;
+    top: 132px;
+    right: 65px;
   }
   @keyframes App-logo-spin {
     from {

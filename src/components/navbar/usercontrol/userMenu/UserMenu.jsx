@@ -14,7 +14,13 @@ import { user_GET } from '../../../../api/discord/data';
 const Layout = styled.div`
   display: flex;
   div {
-    right: 15px;
+    position:relative;
+    
+    bottom:180px;
+    width: 80px;
+    height: 80px;
+    margin-left:50px;
+
   }
 `;
 
@@ -38,16 +44,24 @@ const UserMenu = () => {
   }, []);
 
   return (
-    <Layout>
+    <div className="div-container relative">
+    {/* <div className ="blockwrap-sdk overflow hidden"> */}
+    <div className= "content-center">
+    <div className = "wraper-padding-bug">
+      <Layout>
       <Avatar
         src={
           data
             ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`
             : ''
         }
+        aria-controls='simple-menu'
+        aria-haspopup='true'
+        onClick={handleClick}
         data-test='logoIMG'
       />
-      <Button
+    
+      {/* <Button
         variant='contained'
         color='primary'
         aria-controls='simple-menu'
@@ -55,7 +69,7 @@ const UserMenu = () => {
         onClick={handleClick}
       >
         {data ? data.username : ''}
-      </Button>
+      </Button> */}
       <Menu 
         id='simple-menu'
         anchorEl={anchorEl}
@@ -63,11 +77,16 @@ const UserMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {/* <MenuItem onClick={handleClose}>Menu Option 1</MenuItem>
-        <MenuItem onClick={handleClose}>Menu Option 2</MenuItem> */}
+        <MenuItem onClick={handleClose}>Menu Option 1</MenuItem>
+        <MenuItem onClick={handleClose}>Menu Option 2</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
-    </Layout>
+      </Layout>
+    </div>
+    </div>
+    {/* </div> */}
+    </div>
+  
   );
 };
 

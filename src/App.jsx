@@ -12,25 +12,20 @@ import NotFound from './pages/NotFound/NotFound';
 import Dashboard from './pages/Dashboard/Dashboard';
 import DiscordCallback from './pages/DiscordCallback/DiscordCallback';
 import { Connection, PublicKey, clusterApiUrl, Keypair } from '@solana/web3.js';
-import { AnchorProvider, Program, Provider, web3, utils } from '@project-serum/anchor';
 import { useWallet } from '@solana/wallet-adapter-react';
 // import { selectors } from '../../modules/_common/auth/discord';
 import { useSelector } from 'react-redux';
 import { selectors as authSel } from './modules/_common/auth/discord';
 import { user_GET } from './api/discord/data';
+// const express = require("express");
 
 
 const App = () => {
+  // const express = require("express");
   const { publicKey, signMessage } = useWallet();
   const [data, setData] = React.useState(null);
   const [walletAddress, setWalletAddress] = useState(null);
   const [signInfo, setsignInfo] = useState(null);
-  
-  const network = clusterApiUrl('devnet');
-  const opts = {
-    preflightCommitment: "processed"
-  }
-  const accessToken = useSelector(authSel.accessToken);
   const auth_Discord = useSelector(authSel.authenticated);
   const route = localStorage.getItem('route');
   const checkIfWalletIsConnected = async () => {
@@ -54,11 +49,6 @@ const App = () => {
     } catch (error) {
       console.error(error);
     }
-  };
-  const getUserName = async () => {
-    const req = user_GET(accessToken);
-    const result = await axios.get(req.url, req.headers);
-    setData(result.data);
   };
   const connectWallet = async () => {
     const { solana } = window;
@@ -95,6 +85,7 @@ const App = () => {
 
   const signingMessage = async () => {
     try{
+      
       if (!signMessage) throw new Error('Wallet does not support message signing!');
       if (!walletAddress) throw new Error('Wallet not connected!');
       let message = `Sign this message to prove ownership of this wallet`;
@@ -109,7 +100,7 @@ const App = () => {
       setsignInfo(dataToSend);
       console.log(dataToSend);
     }catch(e){
-    console.log("hello");
+    console.log(e);
     }
   };
   
@@ -117,20 +108,19 @@ const App = () => {
 
   useEffect(() => {
     const onLoad = async () => {
+      
       await checkIfWalletIsConnected();
       
     };
-    
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
   }, []);
   const renderConnectedContainer = () => {
   
-    // getUserName();
+
    
-    if (signInfo === null) {
+    if (signInfo === null && window.location.pathname != "/api/discordCallback" && window.location.pathname != "/login") {
       return (
-      <div className="connected-container">
       <div className = "wrap-image-thumbnail-blog">
       <div>
       <h1 className="h1-gradient font-size-3em">  Sign to proof ownership</h1>
@@ -140,12 +130,12 @@ const App = () => {
       </div>
       {/* <img src ="https://assets.website-files.com/611580035ad59b20437eb024/6170e6b7587b587e289e9d75_line%20svg%20(1).png" loading="lazy" sizes="100vw" alt="" class="star">
       </img> */}
-      </div>
+
       </div>
       );
       
     }
-    // getUserName();
+
     return (
       <Router>
         <Notifier />
@@ -160,6 +150,7 @@ const App = () => {
               path='/dashboard'
               component={Dashboard}
               auth={auth_Discord}
+              
             />
   
             <PrivateRoute
