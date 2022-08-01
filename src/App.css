@@ -201,6 +201,13 @@
     top: 132px;
     right: 65px;
   }
+  .h1-gradient.font-size-05em {
+    font-size: 1em;
+    line-height: 1.2;
+    position:absolute;
+    /* top: 132px;
+    right: 65px; */
+  }
   @keyframes App-logo-spin {
     from {
       transform: rotate(0deg);
@@ -355,6 +362,15 @@
     margin-right: 0.75em;
     margin-bottom: 2em;
     padding-left: 1.5em;
+  }
+  .solana-logo2 {
+    width: 5em;
+    height: 4em;
+    margin-right: 0.75em;
+    margin-bottom: 2em;
+    padding-left: 1.5em;
+    position:absolute;
+    top:180px;
   }
   .immunef-logo {
     width: auto;
