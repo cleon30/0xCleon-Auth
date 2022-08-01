@@ -16,6 +16,27 @@ This is a web3 app designed to enable users to Log In using their wallet and the
 9. [X] Signature Ownership
 
 ## Design 
+
 <img width="872" alt="image" src="https://user-images.githubusercontent.com/62452212/181995028-680cdada-4151-49e0-b251-207ecde251d7.png">
 <img width="682" alt="Captura de Pantalla 2022-08-01 a las 5 24 22" src="https://user-images.githubusercontent.com/62452212/182075174-403a5d9d-9778-434c-891b-25f4cdc5a40b.png">
 <img width="881" alt="Captura de Pantalla 2022-08-01 a las 5 23 38" src="https://user-images.githubusercontent.com/62452212/182075193-68606de8-21df-4439-931b-bee6ebdfa41f.png">
+
+## Getting Started
+
+First of all, please change the REACT_APP_CLIENT_ID and REACT_APP_CLIENT_SECRET that are inside .env file, for your own Discord keys. More info: https://discord.com/developers/docs/topics/oauth2
+
+### Installation
+
+```bash
+git clone https://github.com/cleon30/0xCleon-Auth.git
+cd 0xCleon-Auth
+npm i
+```
+
+### Running
+```bash
+npm run build && npm run start
+```
+
+## Process
+
