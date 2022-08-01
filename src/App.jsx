@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-import axios from 'axios';
-import theme from './theme';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Navbar from './components/navbar/Navbar';
 import Notifier from './components/notifier/Notifier';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
@@ -16,17 +13,12 @@ import { useWallet } from '@solana/wallet-adapter-react';
 // import { selectors } from '../../modules/_common/auth/discord';
 import { useSelector } from 'react-redux';
 import { selectors as authSel } from './modules/_common/auth/discord';
-import { user_GET } from './api/discord/data';
-import { AnchorProvider, Program, Provider, web3, utils } from '@project-serum/anchor';
 // const express = require("express");
 
 
 const App = () => {
   // const express = require("express");
-  const network = clusterApiUrl('devnet');
-  const opts = {
-    preflightCommitment: "processed"
-  }
+
   const { publicKey, signMessage } = useWallet();
   const [data, setData] = React.useState(null);
   const [walletAddress, setWalletAddress] = useState(null);
